@@ -1,0 +1,168 @@
+/* batch_analysis.css — cyan/teal theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+}
+
+.stApp {
+    background: linear-gradient(135deg, #0f0c29 0%, #1a1040 40%, #0d1b2a 100%);
+    color: #e2e8f0;
+}
+
+[data-testid="stSidebar"] {
+    background: rgba(15, 12, 41, 0.95) !important;
+    border-right: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+#MainMenu, footer, header { visibility: hidden; }
+
+hr { border-color: rgba(124, 58, 237, 0.2) !important; }
+
+/* Page header — cyan accent */
+.page-header {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 100%);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    margin: 0 0 0.3rem 0;
+}
+
+.page-sub { font-size: 0.95rem; color: #94a3b8; }
+
+.section-header {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 2rem 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.5), transparent);
+    margin-left: 0.75rem;
+}
+
+/* Upload zone */
+.upload-zone {
+    background: rgba(6, 182, 212, 0.05);
+    border: 2px dashed rgba(6, 182, 212, 0.35);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.upload-zone:hover {
+    border-color: rgba(6, 182, 212, 0.7);
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.upload-icon  { font-size: 3rem; margin-bottom: 0.75rem; }
+.upload-title { font-size: 1.1rem; font-weight: 700; color: #67e8f9; margin-bottom: 0.3rem; }
+.upload-sub   { font-size: 0.85rem; color: #64748b; }
+
+/* Format pills */
+.format-pill {
+    display: inline-block;
+    background: rgba(6, 182, 212, 0.15);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    color: #67e8f9;
+    margin: 3px;
+}
+
+/* Summary stat cards */
+.stat-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #67e8f9, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+/* Streamlit overrides */
+.stButton > button {
+    background: linear-gradient(135deg, #0e7490, #06B6D4) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 0.55rem 1.5rem !important;
+    transition: all 0.3s !important;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4) !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6) !important;
+}
+
+.stSelectbox > div > div {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(6, 182, 212, 0.3) !important;
+    border-radius: 10px !important;
+    color: #e2e8f0 !important;
+}
+
+.stSuccess {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    border-radius: 10px !important;
+}
+
+.stWarning {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    border-radius: 10px !important;
+}
+
+.stInfo {
+    background: rgba(6, 182, 212, 0.08) !important;
+    border: 1px solid rgba(6, 182, 212, 0.25) !important;
+    border-radius: 10px !important;
+    color: #67e8f9 !important;
+}
+
+.stDataFrame { border-radius: 12px; overflow: hidden; }
+
+[data-testid="stFileUploader"] {
+    background: rgba(6, 182, 212, 0.03) !important;
+    border: 2px dashed rgba(6, 182, 212, 0.3) !important;
+    border-radius: 14px !important;
+}

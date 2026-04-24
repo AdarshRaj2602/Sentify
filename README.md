@@ -1,241 +1,125 @@
-# 🛍️ Amazon Review Sentiment Analysis
+<div align="center">
+  
+  # 🛍️ Sentify: Amazon Review Sentiment Analysis
+  
+  **An end-to-end NLP ecosystem exploring Classical Machine Learning, Deep Neural Networks, and State-of-the-Art Transformers.**
+  
+  [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+  [![Streamlit](https://img.shields.io/badge/Streamlit-1.33-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+  [![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-F59E0B?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/)
+  [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+  [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://tensorflow.org/)
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.33-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13-FF6F00?logo=tensorflow&logoColor=white)](https://tensorflow.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+  > *Online product reviews carry enormous commercial value—they influence purchasing decisions, surface product defects, and shape brand reputation. Manually reading thousands of reviews is infeasible at scale. **Sentify** automates binary sentiment classification to instantly predict whether customer feedback is **Positive** or **Negative**.*
 
-> A comprehensive NLP research project exploring classical machine learning, word embeddings,
-> deep learning (LSTM / BiLSTM), and transformer-based transfer learning for binary sentiment
-> classification on Amazon product reviews.
+</div>
 
 ---
 
 ## 📋 Table of Contents
-
-- [Problem Statement](#-problem-statement)
-- [Dataset](#-dataset)
-- [Project Structure](#-project-structure)
-- [Approaches Explored](#-approaches-explored)
-- [Model Results](#-model-results)
-- [Streamlit App](#-streamlit-app)
-- [Setup & Installation](#-setup--installation)
-- [Usage](#-usage)
-- [Tech Stack](#-tech-stack)
-
----
-
-## 🎯 Problem Statement
-
-Online product reviews carry enormous commercial value — they influence purchasing decisions,
-surface product defects, and shape brand reputation. Manually reading thousands of reviews is
-infeasible at scale.
-
-This project automates **binary sentiment classification** — predicting whether an Amazon
-product review expresses a **Positive** or **Negative** sentiment — and compares multiple NLP
-approaches in terms of accuracy, speed, and interpretability.
+1. [🎯 Problem Statement & Objective](#-problem-statement--objective)
+2. [📦 Dataset Overview](#-dataset-overview)
+3. [🔬 NLP Research & Approaches](#-nlp-research--approaches)
+4. [🏆 Model Leaderboard](#-model-leaderboard)
+5. [💻 Streamlit Application](#-streamlit-application)
+6. [📁 Project Architecture](#-project-architecture)
+7. [⚙️ Setup & Installation](#-setup--installation)
+8. [🚀 Usage Guide (Training & Inference)](#-usage-guide-training--inference)
+9. [🛠️ Full Technology Stack](#-full-technology-stack)
+10. [🔮 Future Scope](#-future-scope)
 
 ---
 
-## 📦 Dataset
-
-| Property      | Detail                                      |
-|---------------|---------------------------------------------|
-| Source        | Amazon product reviews (electronics & accessories) |
-| Size          | 1,000 labelled samples                      |
-| Labels        | Positive / Negative (binary)                |
-| Balance       | ~50% Positive / 50% Negative                |
-| Format        | CSV (`data/raw/amazonLabelled.csv`)         |
-| Columns       | `S` (serial), `Feedback` (text), `Sentiment` |
+## 🎯 Problem Statement & Objective
+The core objective of this project is to build a robust sentiment classifier while systematically comparing the evolution of Natural Language Processing techniques. By tracing the path from simple word-frequency counts (Bag-of-Words) to context-aware deep learning and finally to massive, pre-trained transformer models, this project serves as both a **production-ready dashboard** and an **educational NLP playground**.
 
 ---
 
-## 📁 Project Structure
+## 📦 Dataset Overview
+The models are trained and evaluated on a labelled corpus of Amazon product reviews, specifically focusing on electronics and accessories. 
 
-```
-Amazon_Review_Sentiment_Analysis/
-│
-├── app/                          # Streamlit application
-│   ├── streamlit_app.py          # 🏠 Home / Dashboard
-│   ├── utils.py                  # Shared loaders, inference helpers
-│   └── pages/
-│       ├── 1_Single_Analysis.py  # ✍️  Single review analysis
-│       ├── 2_Batch_Analysis.py   # 📂 Batch file upload (CSV/XLSX/TXT)
-│       ├── 3_Model_Comparison.py # 📊 Model comparison & charts
-│       └── 4_About.py            # 📖 Project context & notebooks
-│
+| Property | Detail |
+|:---|:---|
+| **Source** | Amazon Product Reviews |
+| **Size** | 1,000 labelled samples (for classical training pipeline) |
+| **Task** | Binary Classification (Positive / Negative) |
+| **Balance** | ~50% Positive / ~50% Negative (Ensures no accuracy paradox) |
+| **Data Format** | `.csv` (Found in `data/raw/amazonLabelled.csv`) |
+| **Features** | `S` (Serial Number), `Feedback` (Raw Text), `Sentiment` (Target) |
+
+---
+
+## 🔬 NLP Research & Approaches
+This project contains four in-depth Jupyter notebooks documenting the progression of NLP techniques.
+
+### 1️⃣ Classical ML with Bag-of-Words (`CountVectorizer`)
+* **Notebook:** `Sentiment_Analysis_(CountVectorizer+Logistic_reg+Random_forest+naive_bayes).ipynb`
+* **Approach:** Raw text is tokenized, stripped of English stop-words, and converted into term-frequency arrays.
+* **Models Tested:** Logistic Regression, Random Forest Classifier, Multinomial Naive Bayes.
+* **Takeaway:** Naive Bayes performs surprisingly well due to the strong conditional independence of highly polarized words in short product reviews.
+
+### 2️⃣ Semantic Word Embeddings (`Word2Vec`)
+* **Notebook:** `Sentiment_Analysis_(Word2Vec+Logistic_reg+Random_forest).ipynb`
+* **Approach:** Instead of sparse arrays, text is converted into 100-dimensional dense vectors trained on the Amazon corpus via Gensim's `Word2Vec`.
+* **Advantage:** Unlike Bag-of-Words, Word2Vec understands that "awful" and "terrible" share similar semantic space, allowing the model to generalize better to unseen vocabulary.
+
+### 3️⃣ Deep Learning with Sequence Models (`GloVe + LSTM / BiLSTM`)
+* **Notebook:** `Sentiment_Analysis_(Model_2)(GLOVE+LSTM_BILSTM).ipynb`
+* **Approach:** Words are mapped using pre-trained Stanford GloVe embeddings and fed sequentially into Long Short-Term Memory (LSTM) and Bidirectional LSTM networks built with Keras/TensorFlow.
+* **Advantage:** Captures word order and long-term dependencies (e.g., understanding that "Not bad, actually good" is a positive statement, which simple word counts might fail to catch).
+
+### 4️⃣ Transfer Learning with Transformers (`DistilBERT`) 🚀
+* **Notebook:** `Sentiment_Analysis_(Transfer_learning_Model).ipynb`
+* **Approach:** Leveraging HuggingFace's `distilbert-base-uncased-finetuned-sst-2-english`. 
+* **Advantage:** Delivers state-of-the-art accuracy. DistilBERT is smaller, faster, and lighter than traditional BERT while retaining 97% of its language-understanding capabilities.
+
+---
+
+## 🏆 Model Leaderboard
+The 4 most reliable models have been serialized and pushed to the production Streamlit web application.
+
+| Model | Architecture | Feature Extraction | Speed | Accuracy |
+|:---|:---|:---|:---:|:---:|
+| **🤗 DistilBERT** | Transformer | WordPiece Tokenizer | 🐌 Moderate | **91.3%** *(SST-2)* |
+| **📊 Naive Bayes** | Probabilistic | CountVectorizer | ⚡ Fastest | **78.5%** |
+| **📈 Logistic Regression** | Linear Classifier | CountVectorizer | ⚡ Fast | **76.5%** |
+| **🌲 Random Forest** | Ensemble Tree | CountVectorizer | 🐢 Moderate | **76.0%** |
+
+*(Note: Deep learning LSTM/BiLSTM weights are not serialized in the repo due to GitHub file size limits, but the complete code to train and run them is available in the notebooks).*
+
+---
+
+## 💻 Streamlit Application
+The repository includes a highly polished, production-ready frontend built with Streamlit, Vanilla CSS (Glassmorphism), and Plotly. 
+
+**Application Pages:**
+1. 🏠 **Home Dashboard:** High-level metrics, dataset class distributions, and deployed model architecture cards.
+2. ✍️ **Single Review Analysis:** Input custom text, toggle between the 4 ML models, and watch animated confidence gauges render a majority verdict.
+3. 📂 **Batch Analysis:** Upload bulk `.csv`, `.xlsx`, or `.txt` datasets. The app processes thousands of rows concurrently across multiple models and provides downloadable CSV/Excel reports.
+4. 📊 **Model Comparison:** An interactive leaderboard featuring a multi-trace radar chart assessing models on Speed, Accuracy, Scalability, Interpretability, and Robustness.
+5. 📖 **About & Notebooks:** Extensive documentation detailing the research phase and tech stack.
+
+---
+
+## 📁 Project Architecture
+```text
+Sentify/
+├── app/                        # Streamlit Web Application
+│   ├── streamlit_app.py        # Entry point for the dashboard
+│   ├── utils.py                # Polymorphic model loaders & inference logic
+│   ├── styles/                 # Dedicated CSS for Glassmorphism UI
+│   └── pages/                  # Streamlit Multi-page routing
 ├── data/
-│   ├── raw/                      # Raw dataset (gitignored)
-│   └── processed/                # Preprocessed CSV (gitignored)
-│
-├── notebooks/                    # Research notebooks
-│   ├── Sentiment_Analysis_...(CountVectorizer+Logistic_reg+Random_forest+naive_bayes).ipynb
-│   ├── Sentiment_Analysis_...(Word2Vec+Logistic_reg+Random_forest).ipynb
-│   ├── Sentiment_Analysis_...(Model_2)(GLOVE+LSTM_BILSTM).ipynb
-│   └── Sentiment_Analysis_...(Transfer_learning_Model).ipynb
-│
-├── outputs/
-│   ├── models/                   # Trained model artifacts
-│   │   ├── vectorizer.pkl        # CountVectorizer
-│   │   ├── logistic.pkl          # Logistic Regression
-│   │   ├── random_forest.pkl     # Random Forest
-│   │   └── naive_bayes.pkl       # Naive Bayes
-│   └── results.json              # Test accuracy scores
-│
-├── src/
-│   ├── preprocessing.py          # Text cleaning pipeline
-│   ├── model.py                  # Model factory helpers
-│   └── train.py                  # Training + evaluation script
-│
-├── main.py                       # Entry point: preprocess + train
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
----
-
-## 🔬 Approaches Explored
-
-### Notebook 1 — Classical ML (CountVectorizer)
-- **Vectorizer:** `CountVectorizer` with English stop-word removal
-- **Models:** Logistic Regression, Random Forest, Multinomial Naive Bayes
-- **Features:** Bag-of-words term frequency counts
-- **EDA:** Class distribution, word clouds, top feature importance
-
-### Notebook 2 — Word2Vec Embeddings
-- **Vectorizer:** Gensim `Word2Vec` trained on the Amazon corpus
-- **Embedding:** 100-dimensional dense vectors, mean-pooled per document
-- **Models:** Logistic Regression, Random Forest
-- **Advantage:** Captures semantic similarity (e.g., "awful" ≈ "terrible")
-
-### Notebook 3 — GloVe + LSTM / BiLSTM
-- **Embeddings:** Pre-trained GloVe 100d (Stanford)
-- **Architecture:** LSTM and Bidirectional LSTM (Keras / TensorFlow)
-- **Advantage:** Captures sequential context and word order
-- **Limitation:** Requires more data for optimal performance
-
-### Notebook 4 — Transfer Learning (BERT)
-- **Model:** Pre-trained transformer (Hugging Face)
-- **Approach:** Fine-tuning on the Amazon review corpus
-- **Advantage:** State-of-the-art NLP understanding out-of-the-box
-- **Limitation:** Compute-intensive; less advantage on small datasets
-
----
-
-## 📊 Model Results
-
-| Model                | Vectorizer       | Test Accuracy | Speed       |
-|----------------------|------------------|:-------------:|:-----------:|
-| 📊 Naive Bayes       | CountVectorizer  | **78.5%**     | ⚡ Fastest   |
-| 📈 Logistic Regression| CountVectorizer | 76.5%         | ⚡ Fast      |
-| 🌲 Random Forest     | CountVectorizer  | 76.0%         | 🐢 Moderate  |
-
-> Deep learning models (LSTM, BiLSTM, BERT) are explored in notebooks — model weights are
-> not serialised due to size constraints but can be retrained via the notebooks.
-
----
-
-## 🌐 Streamlit App
-
-The app provides a **5-page interactive dashboard**:
-
-| Page | Description |
-|------|-------------|
-| 🏠 **Home** | Dataset overview, model accuracy cards, class distribution charts |
-| ✍️ **Single Analysis** | Text input → animated per-model result cards + confidence gauges |
-| 📂 **Batch Analysis** | Upload CSV / Excel / TXT → bulk predict → download results |
-| 📊 **Model Comparison** | Accuracy leaderboard, radar chart, live head-to-head tester |
-| 📖 **About** | Research context, notebooks, ML pipeline, tech stack |
-
-**Design:** Dark glassmorphism theme · Purple-indigo-cyan palette · Plotly interactive charts ·
-Google Fonts (Inter) · Animated sentiment badges · Confidence gauges
-
----
-
-## ⚙️ Setup & Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/Amazon_Review_Sentiment_Analysis.git
-cd Amazon_Review_Sentiment_Analysis
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Train the models (if .pkl files are not present)
-
-Place `amazonLabelled.csv` in `data/raw/`, then run:
-
-```bash
-python main.py
-```
-
-This will preprocess the data and train all three classical models, saving them to `outputs/models/`.
-
----
-
-## 🚀 Usage
-
-### Run the Streamlit App
-
-```bash
-cd app
-streamlit run streamlit_app.py
-```
-
-Then open [http://localhost:8501](http://localhost:8501) in your browser.
-
-### Run Training Pipeline Only
-
-```bash
-python main.py
-```
-
----
-
-## 🛠️ Tech Stack
-
-| Library / Tool   | Purpose                          |
-|------------------|----------------------------------|
-| Python 3.11      | Core language                    |
-| scikit-learn     | ML models, CountVectorizer       |
-| Pandas / NumPy   | Data manipulation                |
-| Streamlit        | Interactive web app              |
-| Plotly           | Interactive charts               |
-| TensorFlow/Keras | LSTM / BiLSTM (notebooks)        |
-| Gensim           | Word2Vec embeddings (notebooks)  |
-| Hugging Face     | Transfer learning (notebooks)    |
-| NLTK             | NLP utilities                    |
-| openpyxl         | Excel file I/O in Streamlit      |
-| Jupyter          | Research notebooks               |
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-<div align="center">
-    <sub>Built with ❤️ for NLP research · Amazon Review Sentiment Analysis</sub>
-</div>
-#   S e n t i f y  
- 
+│   ├── raw/                    # Original amazonLabelled.csv
+│   └── processed/              # Cleaned datasets ready for training
+├── notebooks/                  # 4 comprehensive Jupyter research environments
+├── outputs/                    
+│   ├── models/                 # Saved .pkl weights (LogReg, RF, Naive Bayes, Vectorizer)
+│   └── results.json            # Cached evaluation metrics for the UI
+├── src/                        # Training Pipeline Scripts
+│   ├── preprocessing.py        # Text cleaning and tokenization
+│   ├── model.py                # Model training helpers
+│   └── train.py                # Evaluation and serialization logic
+├── main.py                     # Root execution script to retrain classical models
+├── requirements.txt            # Python dependencies
+└── README.md                   # You are here!

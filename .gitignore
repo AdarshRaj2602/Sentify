@@ -1,5 +1,17 @@
+# Python
 __pycache__/
-*.pyc
-.env
-outputs/models/
-data/raw/*
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Streamlit/Jupyter
+.streamlit/
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
